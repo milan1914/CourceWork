@@ -1,6 +1,5 @@
 package qa.automation;
 
-import com.opencsv.exceptions.CsvException;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,31 +10,32 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import utils.CsvHelper;
 
-import java.io.IOException;
 
-public class SuccessfulLogin {
+public class UnsuccessfulLogin {
     private WebDriver driver;
 
     @BeforeTest
-    public void initializeDriver(){
+    public void initializeDriver() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
     }
 
     @AfterTest
-    public void tearDown(){
+    public void tearDown() {
         driver.quit();
     }
 
-    @DataProvider(name = "csvUserList")
-    public static Object[][] readUsersFromCsvFile() throws IOException, CsvException {
-        return CsvHelper.readCsvFile("src/test/resources/users.csv");
+    @DataProvider(name = "wrongUserList")
+    public Object[][] getWrongUsers(){
+        return new Object[][]{
+                {"wrong_user", "secret_sauce"},
+                {"standard_user", "wrong_password"}
+        };
     }
 
-    @Test(dataProvider = "csvUserList")
-    public void successfulLoginTest(String userName, String password){
+    @Test(dataProvider = "wrongUserList")
+    public void UnsuccessfulLogin(String userName, String password){
         driver.get("https://www.saucedemo.com/");
 
         WebElement username = driver.findElement(By.id("user-name"));
@@ -49,7 +49,7 @@ public class SuccessfulLogin {
         WebElement loginBtn = driver.findElement(By.cssSelector("[value=Login]"));
         loginBtn.click();
 
-        WebElement userAllPagesButton = driver.findElement(By.id("react-burger-menu-btn"));
-        Assert.assertTrue(userAllPagesButton.isDisplayed(),"This is visible if login is successful");
+        WebElement errorLoginLabel = driver.findElement(By.xpath("//*[text()='Epic sadface: Username and password do not match any user in this service']"));
+        Assert.assertTrue(errorLoginLabel.isDisplayed());
     }
 }
