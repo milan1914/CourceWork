@@ -40,11 +40,11 @@ public class SuccessfulLogin {
 
         WebElement username = driver.findElement(By.id("user-name"));
         username.click();
-        username.sendKeys("userName");
+        username.sendKeys(userName);
 
         WebElement passwordInput = driver.findElement(By.xpath("(//input[@class='input_error form_input'])[2]"));
         passwordInput.click();
-        passwordInput.sendKeys("password");
+        passwordInput.sendKeys(password);
 
         WebElement loginBtn = driver.findElement(By.cssSelector("[value=Login]"));
         loginBtn.click();
