@@ -8,13 +8,13 @@ import org.openqa.selenium.support.PageFactory;
 public class LoginPage {
     protected WebDriver driver;
 
-    @FindBy(id = "user_name")
+    @FindBy(id = "user-name")
     private WebElement userNameInput;
 
     @FindBy(css = "[placeholder=Password]")
     private WebElement passwordInput;
 
-    @FindBy(xpath = "//input[@value=`Login`]")
+    @FindBy(name = "login-button")
     private WebElement loginBtn;
 
     public LoginPage(WebDriver driver){
@@ -23,14 +23,15 @@ public class LoginPage {
     }
 
     public ProductsPage login(String username, String password){
-        userNameInput.click();
+        userNameInput.clear();
         userNameInput.sendKeys(username);
 
-        passwordInput.click();
+        passwordInput.clear();
         passwordInput.sendKeys(password);
 
         loginBtn.click();
 
         return new ProductsPage(driver);
     }
+
 }
