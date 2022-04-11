@@ -11,12 +11,12 @@ import utils.CsvHelper;
 import java.io.IOException;
 
 public class CheckOutTest extends TestUtil {
-    @DataProvider(name = "csvUserList")
+    @DataProvider(name = "loginUser")
     public static Object[][] readUsersFromCsvFile() throws IOException, CsvException {
-        return CsvHelper.readCsvFile("src/test/resources/users.csv");
+        return CsvHelper.readCsvFile("src/test/resources/loginUser.csv");
     }
 
-    @Test(dataProvider = "csvUserList")
+    @Test(dataProvider = "loginUser")
     public void successfulLoginTest(String userName, String password){
 
         LoginPage loginPage = new LoginPage(driver);
@@ -30,6 +30,9 @@ public class CheckOutTest extends TestUtil {
 
         CheckoutInformationPage checkoutInformationPage = new CheckoutInformationPage(driver);
         checkoutInformationPage.fillCheckoutInfo("Milan", "Zhekov", "1914");
+
+        CheckoutOverviewPage checkoutOverviewPage = new CheckoutOverviewPage(driver);
+        checkoutOverviewPage.finishCheckout();
 
         CompletedOrderPage completedOrderPage = new CompletedOrderPage(driver);
         Assert.assertTrue(completedOrderPage.getCheckoutHeader());
