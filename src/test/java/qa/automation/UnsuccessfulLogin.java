@@ -19,7 +19,7 @@ public class UnsuccessfulLogin extends TestUtil {
 
     @Test(dataProvider = "wrongUserList")
     public void UnsuccessfulLogin(String userName, String password){
-
+        //locators
         WebElement username = driver.findElement(By.id("user-name"));
         username.click();
         username.sendKeys(userName);

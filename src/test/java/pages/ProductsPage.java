@@ -8,7 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-
 import java.time.Duration;
 
 public class ProductsPage {
@@ -28,7 +27,6 @@ public class ProductsPage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-
     //this method add items to the cart
     public void addItemToTheCart(String productName) {
         String xpathOfElementToBeAdded = String.format(ADD_TO_CART_LOCATOR, productName);
@@ -39,7 +37,7 @@ public class ProductsPage {
     public void removeItemFromCart (String productName){
         String xpathOfElementToBeAdded = String.format(REMOVE_FROM_CART_LOCATOR, productName);
         FluentWait fluentWait = new FluentWait(driver).withTimeout(Duration.ofSeconds(2));
-
+        //locator
         WebElement removeFromCartButton = driver.findElement(By.xpath(xpathOfElementToBeAdded));
         fluentWait.until(ExpectedConditions.elementToBeClickable(removeFromCartButton));
         removeFromCartButton.click();
@@ -60,13 +58,10 @@ public class ProductsPage {
     //this method check if the correct image is displayed
     public boolean imageExist (String imageName) throws NoSuchElementException {
         String xpathOfImage = String.format(IMAGE_SCR, imageName);
-
         try { WebElement productImage = driver.findElement(By.xpath(xpathOfImage));
-
         }
         catch(Exception e) { return false;
         }
         return true;
     }
-
 }
