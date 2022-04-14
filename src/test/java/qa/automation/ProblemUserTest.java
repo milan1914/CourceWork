@@ -12,6 +12,6 @@ public class ProblemUserTest extends TestUtil {
     public void verifyImage() {
         LoginPage loginPage = new LoginPage(driver);
         ProductsPage productsPage = loginPage.login("problem_user", "secret_sauce");
-        Assert.assertFalse(productsPage.checkImage("bolt-shirt-1200x1500.c0dae290.jpg"));
+        Assert.assertFalse(productsPage.imageExist("bolt-shirt-1200x1500.c0dae290.jpg"));
     }
 }

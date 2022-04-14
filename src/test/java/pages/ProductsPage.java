@@ -58,9 +58,15 @@ public class ProductsPage {
     }
 
     //this method check if the correct image is displayed
-    public boolean checkImage (String imageName) throws NoSuchElementException {
+    public boolean imageExist (String imageName) throws NoSuchElementException {
         String xpathOfImage = String.format(IMAGE_SCR, imageName);
-        WebElement productImage = driver.findElement(By.xpath(xpathOfImage));
-        return productImage.isDisplayed();
+
+        try { WebElement productImage = driver.findElement(By.xpath(xpathOfImage));
+
+        }
+        catch(Exception e) { return false;
+        }
+        return true;
     }
+
 }
